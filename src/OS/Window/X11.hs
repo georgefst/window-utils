@@ -6,6 +6,7 @@ module OS.Window.X11 (
 ) where
 
 import Codec.Picture
+import Control.Applicative
 import Data.Bits
 import Data.ByteString (ByteString)
 import Data.ByteString qualified as BS
@@ -21,7 +22,7 @@ import Graphics.X11 qualified as X11
 import Graphics.X11.Xlib.Extras
 
 data Window = Window X11.Window Display
-    deriving (Eq, Ord)
+    deriving (Eq, Ord, Show)
 
 findByName ::
     -- | substring which must appear in the window title
@@ -32,9 +33,10 @@ findByName name = do
     Just (w, _) <- do
         nET_CLIENT_LIST <- internAtom d "_NET_CLIENT_LIST" True
         Just ids <- getWindowProperty32 d nET_CLIENT_LIST (defaultRootWindow d)
-        find ((name `T.isInfixOf`) . snd) <$> for ids \(fromIntegral -> i) -> do
+        ws <- for ids \(fromIntegral -> i) -> do
             Just cs <- getWindowProperty8 d wM_NAME i
             pure (i, decodeLatin1 . BS.pack $ map fromIntegral cs)
+        pure $ find ((name ==) . snd) ws <|> find ((name `T.isInfixOf`) . snd) ws
     pure $ Window w d
 
 setTitle :: Window -> Text -> IO ()
