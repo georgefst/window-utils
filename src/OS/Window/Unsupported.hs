@@ -1,4 +1,4 @@
-module Util.Window.Unsupported (
+module OS.Window.Unsupported (
     Window, -- it's important that the implementation is hidden here, since it will vary between platforms
     findByName,
     setTitle,

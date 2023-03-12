@@ -1,4 +1,4 @@
-module Util.Window.Win32 (
+module OS.Window.Win32 (
     Window, -- it's important that the implementation is hidden here, since it will vary between platforms
     findByName,
     setTitle,

@@ -1,4 +1,4 @@
-module Util.Window.X11 (
+module OS.Window.X11 (
     Window, -- it's important that the implementation is hidden here, since it will vary between platforms
     findByName,
     setTitle,
