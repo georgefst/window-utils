@@ -66,8 +66,8 @@ setIcon (Window w d) img = do
                         .|. shift (fromIntegral r) 16
                         .|. shift (fromIntegral g) 8
                         .|. shift (fromIntegral b) 0
-                    ) :
-                    groupPixels ps
+                    )
+                        : groupPixels ps
                 [] -> []
                 _ -> error "vector length not a multiple of 4"
         _ -> error "wrong pixel type"
