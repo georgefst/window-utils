@@ -51,10 +51,11 @@ setIcon ::
     -- | PNG image
     ByteString ->
     IO ()
-setIcon (Window w d) img = do
-    case decodePng img of
-        Left e -> error e
-        Right (ImageRGBA8 Image{..}) -> do
+setIcon (Window w d) bs = do
+    case decodePng bs of
+      Left e -> error e
+      Right img -> case img of
+        ImageRGBA8 Image{..} -> do
             nET_WM_ICON <- internAtom d "_NET_WM_ICON" True
             changeProperty32 d w nET_WM_ICON cARDINAL propModeReplace $
                 map fromIntegral [imageWidth, imageHeight]
