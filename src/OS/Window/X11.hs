@@ -7,10 +7,10 @@ module OS.Window.X11 (
 
 import Codec.Picture
 import Control.Applicative
+import Control.Arrow
 import Data.Bits
 import Data.ByteString (ByteString)
 import Data.ByteString qualified as BS
-import Data.Function
 import Data.List
 import Data.Text (Text)
 import Data.Text qualified as T
@@ -52,8 +52,8 @@ setIcon ::
     -- | PNG image
     ByteString ->
     IO ()
-setIcon (Window w d) bs =
-    decodePng bs & either error \case
+setIcon (Window w d) =
+    decodePng >>> either error \case
         ImageRGBA8 Image{..} -> do
             nET_WM_ICON <- internAtom d "_NET_WM_ICON" True
             changeProperty32 d w nET_WM_ICON cARDINAL propModeReplace $
