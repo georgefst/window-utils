@@ -1,5 +1,5 @@
 # Revision history for window-utils
 
-## 0.1.0.0 -- 12-03-2023
+## 0.2.1.0 -- 03-04-2023
 
-* First version. Released on an unsuspecting world.
+* Handle PNGs with no alpha channel.
