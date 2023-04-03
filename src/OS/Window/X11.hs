@@ -62,7 +62,18 @@ setIcon (Window w d) =
             r : g : b : ps -> Just ((r, g, b, maxBound), ps)
             [] -> Nothing
             _ -> error "vector length not a multiple of 3"
-        _ -> error "unexpected pixel type"
+        ImageY8{} -> error "unexpected pixel type: ImageY8"
+        ImageY16{} -> error "unexpected pixel type: ImageY16"
+        ImageY32{} -> error "unexpected pixel type: ImageY32"
+        ImageYF{} -> error "unexpected pixel type: ImageYF"
+        ImageYA8{} -> error "unexpected pixel type: ImageYA8"
+        ImageYA16{} -> error "unexpected pixel type: ImageYA16"
+        ImageRGB16{} -> error "unexpected pixel type: ImageRGB16"
+        ImageRGBF{} -> error "unexpected pixel type: ImageRGBF"
+        ImageRGBA16{} -> error "unexpected pixel type: ImageRGBA16"
+        ImageYCbCr8{} -> error "unexpected pixel type: ImageYCbCr8"
+        ImageCMYK8{} -> error "unexpected pixel type: ImageCMYK8"
+        ImageCMYK16{} -> error "unexpected pixel type: ImageCMYK16"
   where
     rgb :: Int -> Int -> Vec.Vector Word8 -> ([Word8] -> Maybe ((Word8, Word8, Word8, Word8), [Word8])) -> IO ()
     rgb imageWidth imageHeight imageData unconsPixels = do
