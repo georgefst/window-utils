@@ -60,6 +60,7 @@ setIcon (Window w d) =
             _ -> error "vector length not a multiple of 4"
         _ -> error "wrong pixel type"
   where
+    rgb :: Int -> Int -> Vec.Vector Word8 -> ([Word8] -> Maybe ((Word8, Word8, Word8, Word8), [Word8])) -> IO ()
     rgb imageWidth imageHeight imageData unconsPixels = do
         nET_WM_ICON <- internAtom d "_NET_WM_ICON" True
         changeProperty32 d w nET_WM_ICON cARDINAL propModeReplace $
