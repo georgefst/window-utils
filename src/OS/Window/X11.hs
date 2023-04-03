@@ -58,7 +58,11 @@ setIcon (Window w d) =
             r : g : b : a : ps -> Just ((r, g, b, a), ps)
             [] -> Nothing
             _ -> error "vector length not a multiple of 4"
-        _ -> error "wrong pixel type"
+        ImageRGB8 Image{..} -> rgb imageWidth imageHeight imageData \case
+            r : g : b : ps -> Just ((r, g, b, maxBound), ps)
+            [] -> Nothing
+            _ -> error "vector length not a multiple of 3"
+        _ -> error "unexpected pixel type"
   where
     rgb :: Int -> Int -> Vec.Vector Word8 -> ([Word8] -> Maybe ((Word8, Word8, Word8, Word8), [Word8])) -> IO ()
     rgb imageWidth imageHeight imageData unconsPixels = do
