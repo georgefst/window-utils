@@ -5,8 +5,12 @@ license:            BSD-3-Clause
 author:             George Thomas
 maintainer:         georgefsthomas@gmail.com
 synopsis:           OS window icon/name utilities
-extra-source-files:
+homepage:           https://github.com/georgefst/window-utils
+extra-doc-files:
     CHANGELOG.md
+source-repository head
+    type: git
+    location: git://github.com/georgefst/window-utils.git
 
 library
     exposed-modules:
